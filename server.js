@@ -15,6 +15,10 @@ app.get("/", (req, res) => {
   res.send(users);
 });
 
+app.get("/users/", (req, res) => {
+  res.send(users);
+});
+
 app.listen(port, (err) => {
   if (err) console.log(err);
   console.log(`Listening on port ${port}`);
