@@ -1,4 +1,4 @@
-curl -X POST -d '{"foo": "bar", "Idt": 5}' -H 'Content-Type: application/json' -s http://localhost:3050/users/ | jq
+curl -X POST -d '{"name": "Name", "Ids": 5}' -H 'Content-Type: application/json' -s http://localhost:3050/users/ | jq
 
 if [ $? -eq 0 ]
 then

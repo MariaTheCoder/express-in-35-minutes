@@ -1,6 +1,9 @@
 const express = require("express");
+const Joi = require("joi");
 const app = express();
 const port = process.env.port || 3050;
+const userSchema = require("./schemas");
+const middleware = require("./validationMiddleware");
 
 // data
 const users = [
@@ -72,7 +75,7 @@ app.patch("/users/:id", (req, res) => {
   res.send(foundUser);
 });
 
-app.post("/users/", (req, res) => {
+app.post("/users/", middleware(userSchema), (req, res) => {
   const newUser = {};
   let reqBody = req.body;
 
