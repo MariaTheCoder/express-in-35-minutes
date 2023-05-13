@@ -107,6 +107,25 @@ app.post("/users/", (req, res) => {
   res.send(newUser);
 });
 
+app.delete("/users/:id", (req, res) => {
+  const userId = req.params.id;
+
+  if (users.length === 0) {
+    return res.status(400).send({ message: "No users found!" });
+  }
+
+  const foundIndex = users.findIndex((user) => user.id === Number(userId));
+  const foundUser = users[foundIndex];
+
+  if (!foundIndex) {
+    return res.status(404).send({ message: "No user found with given id" });
+  }
+
+  users.splice(foundIndex, 1);
+
+  res.send(foundUser);
+});
+
 app.listen(port, (err) => {
   if (err) console.log(err);
   console.log(`Listening on port ${port}`);
