@@ -104,6 +104,8 @@ app.post("/users/", (req, res) => {
     newUser[key] = element;
   }
 
+  users.push(newUser);
+
   res.send(newUser);
 });
 
