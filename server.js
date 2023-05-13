@@ -96,7 +96,7 @@ app.post("/users/", (req, res) => {
     }
   });
 
-  newUser.id = users.length;
+  newUser.id = users[users.length - 1].id + 1;
 
   for (const key in reqBody) {
     const element = reqBody[key];
