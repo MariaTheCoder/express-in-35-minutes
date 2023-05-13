@@ -43,6 +43,33 @@ app.get("/users/:id", (req, res) => {
   res.send(foundUser);
 });
 
+app.patch("/users/:id", (req, res) => {
+  const userId = req.params.id;
+  const reqBody = req.body;
+
+  if (users.length === 0) {
+    return res.status(400).send({ message: "No users found!" });
+  }
+
+  if (Object.keys(reqBody).length === 0) {
+    return res.status(400).send({ message: "Request body is empty" });
+  }
+
+  const foundUser = users.find((user) => user.id === Number(userId));
+
+  if (!foundUser) {
+    return res.status(404).send({ message: "No user found with given id" });
+  }
+
+  for (const key in reqBody) {
+    const element = reqBody[key];
+
+    foundUser[key] = element;
+  }
+
+  res.send(foundUser);
+});
+
 app.listen(port, (err) => {
   if (err) console.log(err);
   console.log(`Listening on port ${port}`);
