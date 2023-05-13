@@ -12,7 +12,7 @@ curl -s http://localhost:3050/users/ | jq
 
 if [ $? -eq 0 ]
 then
-    echo "Curl succeeded for /users/"
+    echo "Second test was successful"
 else
-    echo "Curl failed for /users/"
+    echo "Second test FAILED"
 fi

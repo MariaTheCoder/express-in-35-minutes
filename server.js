@@ -12,10 +12,18 @@ const users = [
 app.use(express.json());
 
 app.get("/", (req, res) => {
+  if (users.length === 0) {
+    return res.status(400).send({ message: "No users found!" });
+  }
+
   res.send(users);
 });
 
 app.get("/users/", (req, res) => {
+  if (users.length === 0) {
+    return res.status(400).send({ message: "No users found!" });
+  }
+
   res.send(users);
 });
 
