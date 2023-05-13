@@ -9,6 +9,8 @@ const users = [
   { id: 2, name: "Nina", email: "example3@email.com" },
 ];
 
+const illegalProps = ["id", "admin"];
+
 app.use(express.json());
 
 app.get("/", (req, res) => {
@@ -68,6 +70,41 @@ app.patch("/users/:id", (req, res) => {
   }
 
   res.send(foundUser);
+});
+
+app.post("/users/", (req, res) => {
+  const newUser = {};
+  let reqBody = req.body;
+
+  if (Object.keys(reqBody).length === 0) {
+    return res.status(400).send({ message: "Request body is empty" });
+  }
+
+  reqBody = Object.fromEntries(
+    Object.entries(reqBody).map(([key, value]) => [
+      key.toLocaleLowerCase(),
+      value,
+    ])
+  );
+
+  illegalProps.forEach((illegalProp) => {
+    if (reqBody.hasOwnProperty(illegalProp)) {
+      return res.status(400).send({
+        message:
+          "Illegal properties are present in the body requests. Cannot set illegal properties",
+      });
+    }
+  });
+
+  newUser.id = users.length;
+
+  for (const key in reqBody) {
+    const element = reqBody[key];
+
+    newUser[key] = element;
+  }
+
+  res.send(newUser);
 });
 
 app.listen(port, (err) => {
